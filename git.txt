@@ -1,0 +1,6 @@
+echo "# laravel-testing" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/Teng0/laravel-testing.git
+git push -u origin master

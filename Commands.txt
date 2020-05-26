@@ -1,0 +1,4 @@
+php artisan vendor:publish --provider=Yajra\Datatables\DataTablesServiceProvider
+
+
+php artisan make:controller UploadfileController
