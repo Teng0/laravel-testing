@@ -20,12 +20,16 @@ class AjaxdataController extends Controller
 
     }
 
-    function getData(){
-        $students = Student::select('id','first_name', 'last_name');
-        return Datatables::of($students)->addColumn('action',function ($student){
-            return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$student->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
-        })->make(true);
-
+    function getdata()
+    {
+        $students = Student::select('id', 'first_name', 'last_name');
+        return Datatables::of($students)
+            ->addColumn('action', function($student){
+                return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$student->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="#" class="btn btn-xs btn-danger delete" id="'.$student->id.'"><i class="glyphicon glyphicon-remove"></i> Delete</a>';
+            })
+            ->addColumn('checkbox', '<input type="checkbox" name="student_checkbox[]" class="student_checkbox" value="{{$id}}" />')
+            ->rawColumns(['checkbox','action'])
+            ->make(true);
     }
 
     function postData(Request $request){
@@ -93,4 +97,25 @@ class AjaxdataController extends Controller
         echo json_encode($output);
 
     }
+
+    function delteData(Request $request){
+        $student = Student::find($request->input("id"));
+
+        if ($student->delete()){
+            echo "Data Deleted";
+        }
+    }
+
+    function massDelete (Request $request){
+
+        $student_id_array = $request->input("id");
+
+        $student = Student::whereIn("id",$student_id_array);
+
+        if ($student->delete()){
+            echo "Data Deleted";
+        }
+    }
+
+
 }
