@@ -23,6 +23,8 @@ Route::get("/ajaxdata","AjaxdataController@index")->name("ajaxdata");
 Route::get('ajaxdata/getData',"AjaxdataController@getData")->name("ajaxdata.getData");
 Route::post('ajaxdata/postData',"AjaxdataController@postData")->name("ajaxdata.postData");
 Route::get('ajaxdata/fetchData',"AjaxdataController@fetchData")->name("ajaxdata.fetchData");
+Route::get('ajaxdata/delteData',"AjaxdataController@delteData")->name("ajaxdata.delteData");
+Route::get('ajaxdata/massDelete',"AjaxdataController@massDelete")->name("ajaxdata.massDelete");
 
 
 Route::get('/uploadfile', 'UploadfileController@index');
