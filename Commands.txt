@@ -12,3 +12,23 @@ php artisan make:seeder UsersTablesSeeder
 composer dump-autoload
 php artisan db:seed
 php artisan make:controller MainController
+
+
+Dynamic Data AJax
+
+php artisan make:controller DynamicDependent
+
+
+EmailAvailable
+php artisan make:controller EmailAvailable
+
+
+
+LiveSearch
+php artisan make:controller LiveSearch
+
+
+
+
+php artisan make:export UsersExport --model=User
+

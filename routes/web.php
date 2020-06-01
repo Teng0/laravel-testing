@@ -34,5 +34,13 @@ Route::get("/main","MainController@index")->name("main");
 Route::post('/main/checklogin', 'MainController@checklogin');
 Route::get('/main/successlogin', 'MainController@successlogin');
 Route::get('/main/logout', 'MainController@logout');
+Route::post('/main/emailAvailable', 'MainController@emailAvailable')->name("MainController.emailAvailable");
 
 
+Route::get('dynamic_dependent', 'DynamicDependent@index');
+Route::post('dynamic_dependent/fetch', 'DynamicDependent@fetch')->name('dynamicdependent.fetch');
+
+
+Route::get('/live_search', 'LiveSearch@index');
+Route::get('/live_search/action', 'LiveSearch@action')->name('live_search.action');
+Route::get('/live_search/export', 'LiveSearch@export')->name('live_search.export');

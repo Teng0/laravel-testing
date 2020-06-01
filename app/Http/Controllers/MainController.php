@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 class MainController extends Controller
 {
     //
@@ -26,7 +26,7 @@ class MainController extends Controller
         );
 
         if (Auth::attempt($user_array)){
-            return redirect("main/successLogin");
+            return redirect("main/successlogin");
         }else{
             return back()->with("error","Wrong Login Details");
 
@@ -42,6 +42,25 @@ class MainController extends Controller
     {
         Auth::logout();
         return redirect('main');
+    }
+
+    function emailAvailable(Request $request){
+        if($request->get('email'))
+        {
+            $email = $request->get('email');
+            $data = DB::table("users")
+                ->where('email', $email)
+                ->count();
+            if($data > 0)
+            {
+                echo 'right';
+            }
+            else
+            {
+                echo 'not_right';
+            }
+        }
+
     }
 
 }

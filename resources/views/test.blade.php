@@ -49,18 +49,64 @@
     <form method="post"  action="{{url("main/checklogin")}}">
         {{csrf_field()}}
         <div class="form-group">
+            <span id="error_email"></span>
             <label>Enter Email</label>
-            <input type="email" name="email" class="form-control" />
+            <input type="email" name="email" id="email" class="form-control" />
         </div>
         <div class="form-group">
             <label>Enter Password</label>
             <input type="password" name="password" class="form-control" />
         </div>
         <div class="form-group">
-            <input type="submit" name="login" class="btn btn-primary" value="Login" />
+            <input type="submit" name="login" id="login" class="btn btn-primary" value="Login" />
         </div>
     </form>
+
+    {{ csrf_field() }}
 </div>
 </body>
 </html>
 
+<script >
+
+    $(document).ready(function () {
+        $("#email").blur(function () {
+            var error_email ="";
+            var email = $("#email").val();
+            var _token =$("input[name='_token']").val();
+            var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if(!filter.test(email)){
+
+                $('#error_email').html('<label class="text-danger">Invalid Email</label>');
+                $('#email').addClass('has-error');
+                $('#login').attr('disabled', 'disabled');
+
+            }else{
+                $.ajax({
+                    url:"{{route('MainController.emailAvailable')}}",
+                    method:"post",
+                    data:{email:email,_token:_token},
+                    success:function (result) {
+
+                        if(result == 'right')
+                        {
+                            $('#error_email').html('<label class="text-success">Right Login</label>');
+                            $('#email').removeClass('has-error');
+                            $('#login').attr('disabled', false);
+                        }
+                        else
+                        {
+                            $('#error_email').html('<label class="text-danger">Email not Available</label>');
+                            $('#email').addClass('has-error');
+                            $('#login').attr('disabled', 'disabled');
+                        }
+
+                    }
+                })
+            }
+
+        })
+
+    })
+
+</script>
